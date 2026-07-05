@@ -1,48 +1,83 @@
 import 'package:flutter/material.dart';
 
-abstract final class AppColors {
-  // Brand Colors
-  static const Color primary = Color(0xFF2563EB);
-  static const Color primaryLight = Color(0xFF60A5FA);
-  static const Color primaryDark = Color(0xFF1D4ED8);
+abstract interface class AppColors {
+  Color get background;
 
-  static const Color secondary = Color(0xFF06B6D4);
-  static const Color accent = Color(0xFFF97316);
+  Color get surface;
 
-  // Status Colors
-  static const Color success = Color(0xFF22C55E);
-  static const Color warning = Color(0xFFF59E0B);
-  static const Color error = Color(0xFFEF4444);
+  Color get card;
 
-  static const Color white = Color(0xFFFFFFFF);
-  static const Color black = Color(0xFF000000);
-  static const Color transparent = Colors.transparent;
+  Color get textPrimary;
+
+  Color get textSecondary;
+
+  Color get border;
+
+  Color get divider;
+
+  Color get icon;
+
+  Color get transparent;
 }
 
-abstract final class LightColors {
-  static const Color background = Color(0xFFFFFFFF);
-  static const Color surface = Color(0xFFF8FAFC);
-  static const Color card = Color(0xFFFFFFFF);
+final class LightColors implements AppColors {
+  const LightColors();
 
-  static const Color textPrimary = Color(0xFF111827);
-  static const Color textSecondary = Color(0xFF6B7280);
+  @override
+  Color get transparent => Colors.transparent;
 
-  static const Color border = Color(0xFFE5E7EB);
-  static const Color divider = Color(0xFFE2E8F0);
+  @override
+  Color get background => const Color(0xFFFFFFFF);
 
-  static const Color icon = Color(0xFF374151);
+  @override
+  Color get surface => const Color(0xFFF8FAFC);
+
+  @override
+  Color get card => const Color(0xFFFFFFFF);
+
+  @override
+  Color get textPrimary => const Color(0xFF111827);
+
+  @override
+  Color get textSecondary => const Color(0xFF6B7280);
+
+  @override
+  Color get border => const Color(0xFFE5E7EB);
+
+  @override
+  Color get divider => const Color(0xFFE2E8F0);
+
+  @override
+  Color get icon => const Color(0xFF374151);
 }
 
-abstract final class DarkColors {
-  static const Color background = Color(0xFF171717);
-  static const Color surface = Color(0xFF262626);
-  static const Color card = Color(0xFF2D2D2D);
+final class DarkColors implements AppColors {
+  const DarkColors();
 
-  static const Color textPrimary = Color(0xFFF9FAFB);
-  static const Color textSecondary = Color(0xFF9CA3AF);
+  @override
+  Color get transparent => Colors.transparent;
 
-  static const Color border = Color(0xFF404040);
-  static const Color divider = Color(0xFF3F3F46);
+  @override
+  Color get background => const Color(0xFF171717);
 
-  static const Color icon = Color(0xFFE5E7EB);
+  @override
+  Color get surface => const Color(0xFF262626);
+
+  @override
+  Color get card => const Color(0xFF2D2D2D);
+
+  @override
+  Color get textPrimary => const Color(0xFFF9FAFB);
+
+  @override
+  Color get textSecondary => const Color(0xFF9CA3AF);
+
+  @override
+  Color get border => const Color(0xFF404040);
+
+  @override
+  Color get divider => const Color(0xFF3F3F46);
+
+  @override
+  Color get icon => const Color(0xFFE5E7EB);
 }
