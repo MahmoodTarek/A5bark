@@ -3,111 +3,73 @@ import 'package:a5bark/utils/resources/app_text_style.dart';
 import 'package:flutter/material.dart';
 
 abstract final class AppTheme {
-  static final lightTheme = ThemeData(
-    useMaterial3: true,
-    brightness: Brightness.light,
-
-    primaryColor: AppColors.primary,
-    scaffoldBackgroundColor: LightColors.background,
-
-    colorScheme: const ColorScheme.light(
-      primary: AppColors.primary,
-      secondary: AppColors.secondary,
-      surface: LightColors.surface,
-      error: AppColors.error,
-      onPrimary: AppColors.white,
-      onSecondary: AppColors.white,
-      onSurface: LightColors.textPrimary,
-      onError: AppColors.white,
-    ),
-
-    appBarTheme: const AppBarTheme(
-      backgroundColor: LightColors.background,
-      foregroundColor: LightColors.textPrimary,
-      elevation: 0,
-      centerTitle: true,
-    ),
-
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: LightColors.background,
-      selectedItemColor: AppColors.primary,
-      unselectedItemColor: LightColors.textSecondary,
-      type: BottomNavigationBarType.fixed,
-      elevation: 0,
-    ),
-
-    cardColor: LightColors.card,
-
-    dividerColor: LightColors.divider,
-
-    iconTheme: const IconThemeData(color: LightColors.textPrimary),
-
-    textTheme: TextTheme(
-      bodyLarge: AppTextStyle.bodyLarge.copyWith(
-        color: LightColors.textPrimary,
-      ),
-      bodyMedium: AppTextStyle.bodyMedium.copyWith(
-        color: LightColors.textPrimary,
-      ),
-      bodySmall: AppTextStyle.bodySmall.copyWith(
-        color: LightColors.textSecondary,
-      ),
-      titleLarge: AppTextStyle.titleLarge.copyWith(
-        color: LightColors.textPrimary,
-      ),
-    ),
+  static final ThemeData lightTheme = _buildTheme(
+    const LightColors(),
+    Brightness.light,
   );
 
-  static final darkTheme = ThemeData(
-    useMaterial3: true,
-    brightness: Brightness.dark,
-
-    primaryColor: AppColors.primary,
-    scaffoldBackgroundColor: DarkColors.background,
-
-    colorScheme: const ColorScheme.dark(
-      primary: AppColors.primary,
-      secondary: AppColors.secondary,
-      surface: DarkColors.surface,
-      error: AppColors.error,
-      onPrimary: AppColors.white,
-      onSecondary: AppColors.white,
-      onSurface: DarkColors.textPrimary,
-      onError: AppColors.white,
-    ),
-
-    appBarTheme: const AppBarTheme(
-      backgroundColor: DarkColors.background,
-      foregroundColor: DarkColors.textPrimary,
-      elevation: 0,
-      centerTitle: true,
-    ),
-
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: DarkColors.background,
-      selectedItemColor: AppColors.primaryLight,
-      unselectedItemColor: DarkColors.textSecondary,
-      type: BottomNavigationBarType.fixed,
-      elevation: 0,
-    ),
-
-    cardColor: DarkColors.card,
-
-    dividerColor: DarkColors.divider,
-
-    iconTheme: const IconThemeData(color: DarkColors.textPrimary),
-
-    textTheme: TextTheme(
-      bodyLarge: AppTextStyle.bodyLarge.copyWith(color: DarkColors.textPrimary),
-      bodyMedium: AppTextStyle.bodyMedium.copyWith(
-        color: DarkColors.textPrimary,
-      ),
-      bodySmall: AppTextStyle.bodySmall.copyWith(
-        color: DarkColors.textSecondary,
-      ),
-      titleLarge: AppTextStyle.titleLarge.copyWith(
-        color: DarkColors.textPrimary,
-      ),
-    ),
+  static final ThemeData darkTheme = _buildTheme(
+    const DarkColors(),
+    Brightness.dark,
   );
+
+  static ThemeData _buildTheme(
+      AppColors colors,
+      Brightness brightness,
+      ) {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: brightness,
+
+      scaffoldBackgroundColor: colors.background,
+      colorScheme: ColorScheme(
+        brightness: brightness,
+        primary: colors.textPrimary,
+        onPrimary: colors.background,
+        secondary: colors.textSecondary,
+        onSecondary: colors.background,
+        error: Colors.red,
+        onError: Colors.white,
+        surface: colors.surface,
+        onSurface: colors.textPrimary,
+      ),
+
+      appBarTheme: AppBarTheme(
+        backgroundColor: colors.background,
+        foregroundColor: colors.textPrimary,
+        elevation: 0,
+        centerTitle: true,
+      ),
+
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: colors.background,
+        selectedItemColor: colors.background,
+        unselectedItemColor: colors.textSecondary,
+        type: BottomNavigationBarType.fixed,
+        elevation: 0,
+      ),
+
+      cardColor: colors.card,
+      dividerColor: colors.divider,
+
+      iconTheme: IconThemeData(
+        color: colors.icon,
+      ),
+
+      textTheme: TextTheme(
+        bodyLarge: AppTextStyle.bodyLarge.copyWith(
+          color: colors.textPrimary,
+        ),
+        bodyMedium: AppTextStyle.bodyMedium.copyWith(
+          color: colors.textPrimary,
+        ),
+        bodySmall: AppTextStyle.bodySmall.copyWith(
+          color: colors.textSecondary,
+        ),
+        titleLarge: AppTextStyle.titleLarge.copyWith(
+          color: colors.textPrimary,
+        ),
+      ),
+    );
+  }
 }

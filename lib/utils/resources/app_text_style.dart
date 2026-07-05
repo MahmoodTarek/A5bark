@@ -23,3 +23,4 @@ abstract final class AppTextStyle {
     fontWeight: FontWeight.w500,
   );
 }
+
