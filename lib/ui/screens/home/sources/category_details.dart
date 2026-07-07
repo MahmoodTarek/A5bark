@@ -1,5 +1,6 @@
 import 'package:a5bark/data/api/api_manager.dart';
-import 'package:a5bark/ui/screens/home/widgets/source/sources_tabs.dart';
+import 'package:a5bark/model/sources_response.dart';
+import 'package:a5bark/ui/screens/home/sources/sources_tabs.dart';
 import 'package:a5bark/ui/widgets/main_error.dart';
 import 'package:a5bark/ui/widgets/main_loading.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +13,19 @@ class CategoryDetails extends StatefulWidget {
 }
 
 class _CategoryDetailsState extends State<CategoryDetails> {
-  var selectedIndex = 0;
+  int selectedIndex = 0;
+  late Future<SourcesResponse> sourcesFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    sourcesFuture = ApiManager.getSources();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: FutureBuilder(
-        future: ApiManager().getSources(),
+    return FutureBuilder<SourcesResponse>(
+        future: sourcesFuture,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return SourcesTabs(
@@ -35,16 +42,15 @@ class _CategoryDetailsState extends State<CategoryDetails> {
             return MainError(
               message: 'Something went wrong',
               onRetry: () {
-                ApiManager().getSources();
+                ApiManager.getSources();
               },
             );
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return MainLoading();
+            return Center(child: MainLoading());
           }
           return Container();
         },
-      ),
     );
   }
 }
