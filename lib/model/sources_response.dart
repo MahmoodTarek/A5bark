@@ -26,7 +26,7 @@ class SourcesResponse {
 
 /// id : "abc-news"
 /// name : "ABC News"
-/// description : "Your trusted source for breaking news, analysis, exclusive interviews, headlines, and videos at ABCNews.com."
+/// description : "Your trusted sources for breaking news, analysis, exclusive interviews, headlines, and videos at ABCNews.com."
 /// url : "https://abcnews.go.com"
 /// category : "general"
 /// language : "en"
