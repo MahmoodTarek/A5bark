@@ -4,6 +4,7 @@ import 'package:a5bark/model/sources_response.dart';
 import 'package:a5bark/ui/screens/home/sources/articles/article_card.dart';
 import 'package:a5bark/ui/widgets/main_error.dart';
 import 'package:a5bark/ui/widgets/main_loading.dart';
+import 'package:a5bark/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 
 class ArticlesDetails extends StatelessWidget {
@@ -13,6 +14,9 @@ class ArticlesDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double height = context.height;
+    final double width = context.width;
+
     return FutureBuilder<ArticlesResponse>(
       future: ApiManager.getArticlesBySourceId(sourceId: source.id ?? ''),
       builder: (context, snapshot) {
@@ -38,20 +42,16 @@ class ArticlesDetails extends StatelessWidget {
 
         List<Article> articles = snapshot.data?.articles ?? [];
 
-        return ListView.builder(
-          shrinkWrap: true,
+        return ListView.separated(
+          padding: EdgeInsets.symmetric(horizontal: width * .02, vertical: height *.02),
 
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
-
+          separatorBuilder: (context, index) =>
+              SizedBox(height:height * .02),
 
           itemCount: articles.length,
 
           itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom:8.0),
-              child: ArticleCard(article: articles[index]),
-            );
+            return ArticleCard(article: articles[index]);
           },
         );
       },
