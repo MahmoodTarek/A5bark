@@ -26,6 +26,7 @@ class ArticleCard extends StatelessWidget {
         ),
       ),
       child: Column(
+        spacing: context.height * .01,
         children: [
           Expanded(
             child: ClipRRect(
@@ -38,7 +39,6 @@ class ArticleCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 8),
           Text(
             article.title ?? '',
             /* TODO: Article Title Need UX Massage */
@@ -48,10 +48,9 @@ class ArticleCard extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: .spaceBetween,
-            spacing: 16,
+            spacing: context.width * .02,
             children: [
               Expanded(
                 child: Text(
