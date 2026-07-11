@@ -1,7 +1,8 @@
 import 'package:a5bark/ui/screens/home/sources/category_details.dart';
 import 'package:a5bark/utils/resources/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
+import 'package:a5bark/utils/resources/app_strings.dart';
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -21,7 +22,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,
         title: Text(
-          'A5bark',
+        AppStrings.a5bark,
           style: AppTextStyle.bodyLarge.copyWith(fontSize: 20),
         ),
         centerTitle: true,
