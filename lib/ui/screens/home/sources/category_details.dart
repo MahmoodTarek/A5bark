@@ -3,6 +3,7 @@ import 'package:a5bark/model/sources_response.dart';
 import 'package:a5bark/ui/screens/home/sources/sources_tabs.dart';
 import 'package:a5bark/ui/widgets/main_error.dart';
 import 'package:a5bark/ui/widgets/main_loading.dart';
+import 'package:a5bark/utils/resources/app_strings.dart';
 import 'package:flutter/material.dart';
 
 class CategoryDetails extends StatefulWidget {
@@ -40,7 +41,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
           }
           if (snapshot.hasError) {
             return MainError(
-              message: 'Something went wrong',
+              message: AppStrings.somethingWentWrong,
               onRetry: () {
                 ApiManager.getSources();
               },

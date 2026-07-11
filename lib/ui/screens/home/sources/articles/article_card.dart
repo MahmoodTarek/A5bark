@@ -1,6 +1,7 @@
 import 'package:a5bark/model/articles_response.dart';
 import 'package:a5bark/ui/widgets/main_loading.dart';
 import 'package:a5bark/utils/get_time_ago_format.dart';
+import 'package:a5bark/utils/resources/app_strings.dart';
 import 'package:a5bark/utils/screen_size.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,6 @@ class ArticleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final timeAgo = getLocalizedTime(article.publishedAt, context);
-
     return Container(
       height: context.height * .4,
       width: double.infinity,
@@ -39,23 +39,23 @@ class ArticleCard extends StatelessWidget {
               ),
             ),
           ),
+
           Text(
-            article.title ?? '',
-            /* TODO: Article Title Need UX Massage */
+            article.title ?? AppStrings.noArticleTitle,
             style: Theme.of(
               context,
             ).textTheme.bodyMedium?.copyWith(fontSize: 16),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
+
           Row(
             mainAxisAlignment: .spaceBetween,
             spacing: context.width * .02,
             children: [
               Expanded(
                 child: Text(
-                  article.author ?? '',
-                  /* TODO: Article Author Need UX Massage */
+                  article.author ?? AppStrings.unknownAuthor,
                   style: Theme.of(context).textTheme.bodySmall,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -63,7 +63,6 @@ class ArticleCard extends StatelessWidget {
               ),
               Text(
                 timeAgo,
-                /* TODO: Article Author Need UX Massage */
                 style: Theme.of(context).textTheme.bodySmall,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
