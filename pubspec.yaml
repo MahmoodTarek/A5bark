@@ -21,6 +21,7 @@ dependencies:
   get_time_ago: ^2.4.0
   cached_network_image: ^3.4.1
   easy_localization: ^3.0.8
+  flutter_svg: ^2.3.0
 
 dev_dependencies:
   flutter_test:

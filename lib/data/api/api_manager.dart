@@ -3,14 +3,16 @@ import 'dart:convert';
 import 'package:a5bark/data/api/api_constants.dart';
 import 'package:a5bark/data/api/end_points.dart';
 import 'package:a5bark/model/articles_response.dart';
+import 'package:a5bark/model/category.dart';
 import 'package:a5bark/model/sources_response.dart';
 import 'package:http/http.dart' as http;
 
 class ApiManager {
-  static Future<SourcesResponse> getSources() async {
+  static Future<SourcesResponse> getSources({required CategoryType category}) async {
     try {
       var url = Uri.https(ApiConstants.baseUrl, EndPoints.sources, {
         'apiKey': ApiConstants.apiKey,
+        'category': category.name,
       });
 
       final response = await http.get(url);
