@@ -24,7 +24,7 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       centerTitle: true,
-      title: AppStrings.a5bark,
+      title: AppStrings.home,
       actionsPadding: EdgeInsets.symmetric(horizontal: context.width * .04),
       actions: [
         SvgPicture.asset(

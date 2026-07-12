@@ -1,5 +1,8 @@
+import 'package:a5bark/model/category.dart';
 import 'package:a5bark/ui/screens/home/categories/categories.dart';
+import 'package:a5bark/ui/screens/home/sources/category_details.dart';
 import 'package:a5bark/ui/screens/home/widgets/news_app_bar.dart';
+import 'package:a5bark/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -10,6 +13,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  CategoryType? selectedCategory;
   @override
   void initState() {
     super.initState();
@@ -19,7 +23,19 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NewsAppBar(),
-      body: SafeArea(top: false, child: Categories()),
+      body: SafeArea(
+        top: false,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: context.width * .02),
+          child: selectedCategory == null ? Categories(
+            onCategorySelected: (CategoryType category) {
+              setState(() {
+                selectedCategory = category;
+              });
+            },
+          ) : CategoryDetails(category: selectedCategory ?? CategoryType.general),
+        ),
+      ),
     );
   }
 }
