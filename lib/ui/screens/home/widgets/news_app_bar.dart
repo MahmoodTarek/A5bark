@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const NewsAppBar({super.key});
+  final String title;
+
+  const NewsAppBar({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +20,21 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
     return CustomAppBar(
       leading: Padding(
         padding: EdgeInsets.symmetric(horizontal: context.width * .02),
-        child: SvgPicture.asset(
-          AppIcons.drawer,
-          colorFilter: ColorFilter.mode(iconsColor, BlendMode.srcIn),
+        child: IconButton(
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+          padding: EdgeInsets.zero,
+          icon: SvgPicture.asset(
+            AppIcons.drawer,
+            colorFilter: ColorFilter.mode(iconsColor, BlendMode.srcIn),
+            height: context.height * .04,
+            width: context.width * .04,
+          ),
         ),
       ),
       centerTitle: true,
-      title: AppStrings.home,
+      title: getLocalizationTitle(title),
       actionsPadding: EdgeInsets.symmetric(horizontal: context.width * .04),
       actions: [
         SvgPicture.asset(
@@ -39,4 +49,26 @@ class NewsAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(80);
+}
+
+String getLocalizationTitle(String title) {
+  switch (title) {
+    case 'home':
+      return AppStrings.home;
+    case 'general':
+      return AppStrings.general;
+    case 'business':
+      return AppStrings.business;
+    case 'sports':
+      return AppStrings.sport;
+    case 'health':
+      return AppStrings.health;
+    case 'science':
+      return AppStrings.science;
+    case 'technology':
+      return AppStrings.technology;
+    case 'entertainment':
+      return AppStrings.entertainment;
+  }
+  return '';
 }
