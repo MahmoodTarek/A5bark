@@ -2,6 +2,10 @@ abstract final class AppIcons{
   static const String drawer = 'assets/icons/ic_menu.svg';
   static const String search = 'assets/icons/ic_search.svg';
   static const String arrow = 'assets/icons/ic_arrow.svg';
+  static const String home = 'assets/icons/ic_home.svg';
+  static const String theme = 'assets/icons/ic_theme.svg';
+  static const String language = 'assets/icons/ic_language.svg';
+  static const String dropMenu = 'assets/icons/ic_drop_menu.svg';
 }
 
 abstract final class AppImages {

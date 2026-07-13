@@ -77,8 +77,6 @@ class _ViewAllButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.setLocale(Locale('en'));
-
     return Directionality(
       textDirection: isRight ? TextDirection.rtl : TextDirection.ltr,
       child: ElevatedButton(
