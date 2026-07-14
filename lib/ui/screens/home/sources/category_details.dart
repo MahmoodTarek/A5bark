@@ -1,4 +1,4 @@
-import 'package:a5bark/data/api/api_manager.dart';
+import 'package:a5bark/data/api/dio_api_manager.dart';
 import 'package:a5bark/model/category.dart';
 import 'package:a5bark/model/sources_response.dart';
 import 'package:a5bark/ui/screens/home/sources/sources_tabs.dart';
@@ -23,7 +23,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
   @override
   void initState() {
     super.initState();
-    sourcesFuture = ApiManager.getSources(category: widget.category);
+    sourcesFuture = DioApiManager().getSources(category: widget.category.name);
   }
 
   @override
@@ -46,7 +46,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
           return MainError(
             message: AppStrings.somethingWentWrong,
             onRetry: () {
-              ApiManager.getSources(category: widget.category);
+              DioApiManager().getSources(category: widget.category.name);
             },
           );
         }

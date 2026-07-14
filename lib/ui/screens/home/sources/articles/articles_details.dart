@@ -1,4 +1,4 @@
-import 'package:a5bark/data/api/api_manager.dart';
+import 'package:a5bark/data/api/dio_api_manager.dart';
 import 'package:a5bark/model/articles_response.dart';
 import 'package:a5bark/model/sources_response.dart';
 import 'package:a5bark/ui/screens/home/sources/articles/article_card.dart';
@@ -18,7 +18,7 @@ class ArticlesDetails extends StatelessWidget {
     final double width = context.width;
 
     return FutureBuilder<ArticlesResponse>(
-      future: ApiManager.getArticlesBySourceId(sourceId: source.id ?? ''),
+      future: DioApiManager().getArticlesBySourceId(sourceId: source.id??''),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: MainLoading());
@@ -28,7 +28,7 @@ class ArticlesDetails extends StatelessWidget {
           return MainError(
             message: 'Something went to wrong',
             onRetry: () =>
-                ApiManager.getArticlesBySourceId(sourceId: source.id ?? ''),
+                DioApiManager().getArticlesBySourceId(sourceId: source.id ?? ''),
           );
         }
 
@@ -36,7 +36,7 @@ class ArticlesDetails extends StatelessWidget {
           return MainError(
             message: snapshot.data?.message ?? '',
             onRetry: () =>
-                ApiManager.getArticlesBySourceId(sourceId: source.id ?? ''),
+                DioApiManager().getArticlesBySourceId(sourceId: source.id ?? ''),
           );
         }
 

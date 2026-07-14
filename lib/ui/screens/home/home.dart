@@ -28,6 +28,7 @@ class _HomeState extends State<Home> {
       drawer: NewsDrawer(onBackToHomeClicked: (){
         setState(() {
           selectedCategory = null;
+          Navigator.pop(context);
         });
       }),
       body: SafeArea(
