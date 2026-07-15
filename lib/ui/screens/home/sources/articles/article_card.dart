@@ -1,4 +1,4 @@
-import 'package:a5bark/model/articles_response.dart';
+import 'package:a5bark/model/article.dart';
 import 'package:a5bark/ui/widgets/main_loading.dart';
 import 'package:a5bark/utils/get_time_ago_format.dart';
 import 'package:a5bark/utils/resources/app_strings.dart';
