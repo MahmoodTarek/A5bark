@@ -1,4 +1,4 @@
-import 'package:a5bark/model/sources_response.dart';
+import 'package:a5bark/model/source.dart';
 import 'package:a5bark/ui/screens/home/sources/articles/articles_details.dart';
 import 'package:a5bark/utils/resources/app_theme_extension.dart';
 import 'package:flutter/material.dart';
