@@ -1,15 +1,12 @@
-import 'package:a5bark/data/api/api_constants.dart';
-import 'package:a5bark/data/api/api_manager.dart';
-import 'package:a5bark/model/article.dart';
-import 'package:a5bark/model/article_response.dart';
 import 'package:a5bark/model/source.dart';
 import 'package:a5bark/ui/screens/home/sources/articles/article_card.dart';
+import 'package:a5bark/ui/screens/home/view_model/home_view_model.dart';
 import 'package:a5bark/ui/widgets/main_error.dart';
 import 'package:a5bark/ui/widgets/main_loading.dart';
 import 'package:a5bark/utils/resources/app_strings.dart';
 import 'package:a5bark/utils/screen_size.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ArticlesDetails extends StatefulWidget {
   final Source source;
@@ -21,26 +18,19 @@ class ArticlesDetails extends StatefulWidget {
 }
 
 class _ArticlesDetailsState extends State<ArticlesDetails> {
-  late Future<ArticleResponse> articlesFuture;
-
-  Future<ArticleResponse> loadArticles() {
-    return ApiManager(
-      Dio(),
-    ).getEverything(ApiConstants.apiKey, widget.source.id!);
-  }
+  final viewModel = HomeViewModel();
 
   @override
   void initState() {
     super.initState();
-    articlesFuture = loadArticles();
+    viewModel.getArticles(sourceId: widget.source.id ?? '');
   }
 
   @override
   void didUpdateWidget(covariant ArticlesDetails oldWidget) {
     super.didUpdateWidget(oldWidget);
-
     if (oldWidget.source.id != widget.source.id) {
-      articlesFuture = loadArticles();
+      viewModel.getArticles(sourceId: widget.source.id ?? '');
     }
   }
 
@@ -49,50 +39,51 @@ class _ArticlesDetailsState extends State<ArticlesDetails> {
     final double height = context.height;
     final double width = context.width;
 
-    return FutureBuilder<ArticleResponse>(
-      future: articlesFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: MainLoading());
-        }
+    return ChangeNotifierProvider.value(
+      value: viewModel,
+      child: Consumer<HomeViewModel>(
+        builder: (context, viewModel, child) {
+          if (viewModel.articles == null && viewModel.errorMessage == null) {
+            return Center(child: MainLoading());
+          }
 
-        if (snapshot.hasError) {
-          return MainError(
-            message: AppStrings.somethingWentWrong,
-            onRetry: () => articlesFuture,
-          );
-        }
-
-        List<Article> articles = snapshot.data?.articles ?? [];
-        if (snapshot.hasData) {
-          if (articles.isEmpty) {
-            return Center(
-              child: Text(
-                AppStrings.noArticles,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
+          if (viewModel.errorMessage != null) {
+            return MainError(
+              message: AppStrings.somethingWentWrong,
+              onRetry: () =>
+                  viewModel.getArticles(sourceId: widget.source.name ?? ''),
             );
           }
 
-          return ListView.separated(
-            padding: EdgeInsets.symmetric(
-              horizontal: width * .02,
-              vertical: height * .02,
-            ),
+          if (viewModel.articles != null) {
+            if (viewModel.articles!.isEmpty) {
+              return Center(
+                child: Text(
+                  AppStrings.noArticles,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+              );
+            }
 
-            separatorBuilder: (context, index) =>
-                SizedBox(height: height * .02),
+            return ListView.separated(
+              padding: EdgeInsets.symmetric(
+                horizontal: width * .02,
+                vertical: height * .02,
+              ),
 
-            itemCount: articles.length,
+              separatorBuilder: (context, index) =>
+                  SizedBox(height: height * .02),
 
-            itemBuilder: (context, index) {
-              return ArticleCard(article: articles[index]);
-            },
-          );
-        }
+              itemCount: viewModel.articles!.length,
 
-        return Container();
-      },
+              itemBuilder: (context, index) {
+                return ArticleCard(article: viewModel.articles![index]);
+              },
+            );
+          }
+          return const SizedBox.shrink();
+          },
+      ),
     );
   }
 }
