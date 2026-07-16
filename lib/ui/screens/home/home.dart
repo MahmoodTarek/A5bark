@@ -24,13 +24,17 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: NewsAppBar(title: selectedCategory == null ? 'home' : selectedCategory!.name),
-      drawer: NewsDrawer(onBackToHomeClicked: (){
-        setState(() {
-          selectedCategory = null;
-          Navigator.pop(context);
-        });
-      }),
+      appBar: NewsAppBar(
+        title: selectedCategory == null ? 'home' : selectedCategory!.name,
+      ),
+      drawer: NewsDrawer(
+        onBackToHomeClicked: () {
+          setState(() {
+            selectedCategory = null;
+            Navigator.pop(context);
+          });
+        },
+      ),
       body: SafeArea(
         top: false,
         child: Padding(
