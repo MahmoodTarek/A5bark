@@ -29,5 +29,15 @@
   "no_article_title": "مقال بدون عنوان",
   "no_article_description": "لا يوجد وصف متاح.",
   "unknown_author": "كاتب غير معروف",
-  "published_date_unknown": "تاريخ غير معروف"
+  "published_date_unknown": "تاريخ غير معروف",
+
+  "network_timeout": "استغرقت العملية وقتًا أطول من المتوقع. حاول مرة أخرى.",
+  "no_internet_connection": "لا يوجد اتصال بالإنترنت. تحقق من اتصالك ثم حاول مرة أخرى.",
+  "request_cancelled": "تم إلغاء الطلب.",
+  "server_error": "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى لاحقًا.",
+  "unexpected_error": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+  "bad_request": "الطلب غير صالح.",
+  "unauthorized": "فشل التحقق من الهوية.",
+  "forbidden": "ليست لديك صلاحية لتنفيذ هذا الإجراء.",
+  "not_found": "تعذر العثور على البيانات المطلوبة."
 }
