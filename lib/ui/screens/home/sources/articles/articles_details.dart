@@ -1,12 +1,12 @@
 import 'package:a5bark/model/source.dart';
 import 'package:a5bark/ui/screens/home/sources/articles/article_card.dart';
-import 'package:a5bark/ui/screens/home/view_model/home_view_model.dart';
+import 'package:a5bark/ui/screens/home/sources/articles/cubit/articles_cubit.dart';
+import 'package:a5bark/ui/screens/home/sources/articles/cubit/articles_state.dart';
 import 'package:a5bark/ui/widgets/main_error.dart';
 import 'package:a5bark/ui/widgets/main_loading.dart';
 import 'package:a5bark/utils/resources/app_strings.dart';
-import 'package:a5bark/utils/screen_size.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ArticlesDetails extends StatefulWidget {
   final Source source;
@@ -18,7 +18,7 @@ class ArticlesDetails extends StatefulWidget {
 }
 
 class _ArticlesDetailsState extends State<ArticlesDetails> {
-  final viewModel = HomeViewModel();
+  final viewModel = ArticlesCubit();
 
   @override
   void initState() {
@@ -36,54 +36,40 @@ class _ArticlesDetailsState extends State<ArticlesDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final double height = context.height;
-    final double width = context.width;
-
-    return ChangeNotifierProvider.value(
-      value: viewModel,
-      child: Consumer<HomeViewModel>(
-        builder: (context, viewModel, child) {
-          if (viewModel.articles == null && viewModel.errorMessage == null) {
-            return Center(child: MainLoading());
-          }
-
-          if (viewModel.errorMessage != null) {
-            return MainError(
-              message: AppStrings.somethingWentWrong,
-              onRetry: () =>
-                  viewModel.getArticles(sourceId: widget.source.name ?? ''),
-            );
-          }
-
-          if (viewModel.articles != null) {
-            if (viewModel.articles!.isEmpty) {
-              return Center(
-                child: Text(
-                  AppStrings.noArticles,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              );
-            }
-
-            return ListView.separated(
-              padding: EdgeInsets.symmetric(
-                horizontal: width * .02,
-                vertical: height * .02,
+    return BlocBuilder<ArticlesCubit, ArticlesState>(
+      bloc: viewModel,
+      builder: (BuildContext context, state) {
+        if (state is ArticlesSuccessState) {
+          if (state.articles.isEmpty) {
+            return Center(
+              child: Text(
+                AppStrings.noArticles,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
-
-              separatorBuilder: (context, index) =>
-                  SizedBox(height: height * .02),
-
-              itemCount: viewModel.articles!.length,
-
-              itemBuilder: (context, index) {
-                return ArticleCard(article: viewModel.articles![index]);
-              },
             );
           }
-          return const SizedBox.shrink();
-          },
-      ),
+          return ListView.builder(
+            itemCount: state.articles.length,
+            itemBuilder: (context, index) {
+              return ArticleCard(article: state.articles[index]);
+            },
+          );
+        } else if (state is ArticlesErrorState) {
+          return MainError(
+            message: state.errorMessage,
+            onRetry: () {
+              viewModel.getArticles(sourceId: widget.source.id ?? '');
+            },
+          );
+        }
+        return MainLoading();
+      },
     );
+  }
+
+  @override
+  void dispose() {
+    viewModel.close();
+    super.dispose();
   }
 }

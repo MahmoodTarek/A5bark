@@ -9,11 +9,12 @@ class SourceResponse {
   final String? status;
   @JsonKey(name: "sources")
   final List<Source>? sources;
+  @JsonKey(name: "code")
+  final String? code;
+  @JsonKey(name: "message")
+  final String? message;
 
-  SourceResponse ({
-    this.status,
-    this.sources,
-  });
+  SourceResponse({this.status, this.sources, this.code, this.message});
 
   factory SourceResponse.fromJson(Map<String, dynamic> json) {
     return _$SourceResponseFromJson(json);
@@ -23,4 +24,3 @@ class SourceResponse {
     return _$SourceResponseToJson(this);
   }
 }
-

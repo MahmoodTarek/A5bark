@@ -29,5 +29,15 @@
   "no_article_title": "Untitled Article",
   "no_article_description": "No description available.",
   "unknown_author": "Unknown Author",
-  "published_date_unknown": "Unknown date"
+  "published_date_unknown": "Unknown date",
+
+  "network_timeout": "The request took too long. Please try again.",
+  "no_internet_connection": "No internet connection. Check your connection and try again.",
+  "request_cancelled": "The request was cancelled.",
+  "server_error": "Something went wrong on the server. Please try again later.",
+  "unexpected_error": "Something went wrong. Please try again.",
+  "bad_request": "Invalid request.",
+  "unauthorized": "Authentication failed.",
+  "forbidden": "You don't have permission to perform this action.",
+  "not_found": "The requested resource was not found."
 }

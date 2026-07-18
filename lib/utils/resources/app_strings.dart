@@ -46,4 +46,14 @@ abstract final class AppStrings {
   static String get noArticleDescription => 'no_article_description'.tr();
   static String get unknownAuthor => 'unknown_author'.tr();
   static String get publishedDateUnknown => 'published_date_unknown'.tr();
+
+  static String get networkTimeout => 'network_timeout'.tr();
+  static String get noInternetConnection => 'no_internet_connection'.tr();
+  static String get requestCancelled => 'request_cancelled'.tr();
+  static String get serverError => 'server_error'.tr();
+  static String get unexpectedError => 'unexpected_error'.tr();
+  static String get badRequest => 'bad_request'.tr();
+  static String get unauthorized => 'unauthorized'.tr();
+  static String get forbidden => 'forbidden'.tr();
+  static String get notFound => 'not_found'.tr();
 }

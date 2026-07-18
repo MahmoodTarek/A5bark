@@ -12,11 +12,17 @@ class ArticleResponse {
   final int? totalResults;
   @JsonKey(name: "articles")
   final List<Article>? articles;
+  @JsonKey(name: "code")
+  final String? code;
+  @JsonKey(name: "message")
+  final String? message;
 
   ArticleResponse ({
     this.status,
     this.totalResults,
     this.articles,
+    this.code,
+    this.message,
   });
 
   factory ArticleResponse.fromJson(Map<String, dynamic> json) {
