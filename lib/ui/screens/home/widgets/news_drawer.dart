@@ -1,4 +1,4 @@
-import 'package:a5bark/providers/theme_provider.dart';
+import 'package:a5bark/theme_cubit.dart';
 import 'package:a5bark/ui/screens/home/widgets/divider_item.dart';
 import 'package:a5bark/ui/screens/home/widgets/drawer_item.dart';
 import 'package:a5bark/ui/screens/home/widgets/drop_down_menu.dart';
@@ -9,7 +9,7 @@ import 'package:a5bark/utils/resources/app_theme_extension.dart';
 import 'package:a5bark/utils/screen_size.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewsDrawer extends StatelessWidget {
   final VoidCallback onBackToHomeClicked;
@@ -19,11 +19,6 @@ class NewsDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = context.height;
-    var themeProvider = Provider.of<ThemeProvider>(context);
-    final currentTheme = themeProvider.currentTheme == ThemeMode.dark
-        ? 'dark'
-        : 'light';
-
     final AppColors colors = context.colors;
     return Drawer(
       backgroundColor: colors.background,
@@ -55,23 +50,29 @@ class NewsDrawer extends StatelessWidget {
 
           DividerItem(),
           DrawerItem(iconPath: AppIcons.theme, title: AppStrings.theme),
-          DropDownMenu(
-            title: AppStrings.theme,
-            selectedValue: currentTheme,
-            optionsItems: [
-              DropdownMenuItem(value: 'dark', child: Text(AppStrings.dark)),
-              DropdownMenuItem(value: 'light', child: Text(AppStrings.light)),
-            ],
-            onChanged: (value) {
-              if (currentTheme == value) return;
-              if (value == 'dark') {
-                themeProvider.changeTheme(newThemeMode: ThemeMode.dark);
-              } else {
-                themeProvider.changeTheme(newThemeMode: ThemeMode.light);
-              }
+          BlocBuilder<ThemeCubit, ThemeMode>(
+            buildWhen: (previous, current) => previous != current,
+            builder: (context, currentTheme) {
+              return DropDownMenu(
+                title: AppStrings.theme,
+                selectedValue: currentTheme.name,
+                optionsItems: [
+                  DropdownMenuItem(value: 'dark', child: Text(AppStrings.dark)),
+                  DropdownMenuItem(
+                    value: 'light',
+                    child: Text(AppStrings.light),
+                  ),
+                ],
+                onChanged: (value) {
+                  context.read<ThemeCubit>().changeTheme(
+                    newThemeMode: value == 'dark'
+                        ? ThemeMode.dark
+                        : ThemeMode.light,
+                  );
+                },
+              );
             },
           ),
-
           DividerItem(),
           DrawerItem(iconPath: AppIcons.language, title: AppStrings.language),
           DropDownMenu(
@@ -108,5 +109,3 @@ class NewsDrawer extends StatelessWidget {
 }
 
 enum LanguageOption { english, arabic }
-
-enum ThemeOption { light, dark }
