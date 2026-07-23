@@ -1,30 +1,36 @@
-import 'package:a5bark/data/api/api_constants.dart';
 import 'package:a5bark/data/api/api_manager.dart';
+import 'package:a5bark/data/repository/articles/data_sources/impl/articles_remote_data_source_impl.dart';
+import 'package:a5bark/data/repository/articles/data_sources/remote/articles_remote_data_source.dart';
+import 'package:a5bark/data/repository/articles/repository/articles_repository.dart';
+import 'package:a5bark/data/repository/articles/repository/impl/articles_repository_impl.dart';
 import 'package:a5bark/ui/screens/home/sources/articles/cubit/articles_state.dart';
 import 'package:a5bark/utils/map_dio_exception_to_message.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ArticlesCubit extends Cubit<ArticlesState> {
-  ArticlesCubit() : super(ArticlesLoadingState());
+  late final ApiManager apiManager;
+  late final ArticlesRepository articlesRepository;
+  late final ArticlesRemoteDataSource articlesRemoteDataSource;
+
+  ArticlesCubit() : super(ArticlesLoadingState()) {
+    apiManager = ApiManager(Dio());
+    articlesRemoteDataSource = ArticlesRemoteDataSourceImpl(apiManager);
+    articlesRepository = ArticlesRepositoryImpl(articlesRemoteDataSource);
+  }
 
   Future<void> getArticles({required String sourceId}) async {
     try {
       emit(ArticlesLoadingState());
 
-      final response = await ApiManager(
-        Dio(),
-        baseUrl: ApiConstants.baseUrl,
-      ).getEverything(ApiConstants.apiKey, sourceId);
+      final response = await articlesRepository.getArticles(sourceId: sourceId);
       if (response.status == "error") {
-        emit(ArticlesErrorState(response.message??''));
+        emit(ArticlesErrorState(response.message ?? ''));
       } else {
         emit(ArticlesSuccessState(response.articles!));
       }
     } on DioException catch (e) {
-      emit(
-          ArticlesErrorState(mapDioExceptionToMessage(exception: e)),
-      );
+      emit(ArticlesErrorState(mapDioExceptionToMessage(exception: e)));
     } catch (message) {
       emit(ArticlesErrorState(message.toString()));
     }
