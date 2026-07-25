@@ -20,20 +20,17 @@ class ArticlesRepositoryImpl extends ArticlesRepository {
 
     if (connectivityResult.contains(ConnectivityResult.mobile) ||
         connectivityResult.contains(ConnectivityResult.wifi)) {
-
       final articles = await articlesRemoteDataSource.getArticles(
         sourceId: sourceId,
       );
 
-      articlesLocalDataSource.setArticles(
+      await articlesLocalDataSource.setArticles(
         sourceId: sourceId,
         articles: articles,
       );
 
       return articles;
-
-    } else {
-      return articlesLocalDataSource.getArticles(sourceId: sourceId);
     }
+    return await articlesLocalDataSource.getArticles(sourceId: sourceId);
   }
 }

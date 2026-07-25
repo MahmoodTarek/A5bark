@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'article_response.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class ArticleResponse {
   @JsonKey(name: "status")
   final String? status;
@@ -17,7 +17,7 @@ class ArticleResponse {
   @JsonKey(name: "message")
   final String? message;
 
-  ArticleResponse ({
+  ArticleResponse({
     this.status,
     this.totalResults,
     this.articles,
@@ -33,6 +33,3 @@ class ArticleResponse {
     return _$ArticleResponseToJson(this);
   }
 }
-
-
-

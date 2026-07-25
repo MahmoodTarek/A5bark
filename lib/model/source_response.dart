@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'source_response.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class SourceResponse {
   @JsonKey(name: "status")
   final String? status;
