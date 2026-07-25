@@ -1,4 +1,5 @@
 import 'package:a5bark/data/api/api_manager.dart';
+import 'package:a5bark/data/repository/articles/data_sources/impl/articles_local_data_source_impl.dart';
 import 'package:a5bark/data/repository/articles/data_sources/impl/articles_remote_data_source_impl.dart';
 import 'package:a5bark/data/repository/articles/data_sources/local/articles_local_data_source.dart';
 import 'package:a5bark/data/repository/articles/data_sources/remote/articles_remote_data_source.dart';
@@ -17,6 +18,7 @@ class ArticlesCubit extends Cubit<ArticlesState> {
 
   ArticlesCubit() : super(ArticlesLoadingState()) {
     apiManager = ApiManager(Dio());
+    articlesLocalDataSource = ArticlesLocalDataSourceImpl();
     articlesRemoteDataSource = ArticlesRemoteDataSourceImpl(apiManager);
     articlesRepository = ArticlesRepositoryImpl(
       articlesRemoteDataSource: articlesRemoteDataSource,

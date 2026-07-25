@@ -1,5 +1,7 @@
 import 'package:a5bark/data/api/api_manager.dart';
+import 'package:a5bark/data/repository/sources/data_sources/impl/source_local_data_source_impl.dart';
 import 'package:a5bark/data/repository/sources/data_sources/impl/source_remote_data_source_impl.dart';
+import 'package:a5bark/data/repository/sources/data_sources/local/source_local_data_source.dart';
 import 'package:a5bark/data/repository/sources/data_sources/remote/source_remote_data_source.dart';
 import 'package:a5bark/data/repository/sources/repository/impl/source_repository_impl.dart';
 import 'package:a5bark/data/repository/sources/repository/source_repository.dart';
@@ -10,12 +12,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SourcesCubit extends Cubit<SourcesState> {
   late final SourceRemoteDataSource sourcesDataSource;
+  late final SourceLocalDataSource sourcesLocalDataSource;
   late final SourceRepository sourcesRepository;
   final apiManager = ApiManager(Dio());
 
   SourcesCubit() : super(SourcesLoadingState()) {
+    sourcesLocalDataSource = SourceLocalDataSourceImpl();
     sourcesDataSource = SourceRemoteDataSourceImpl(apiManager);
-    sourcesRepository = SourceRepositoryImpl(sourcesDataSource);
+    sourcesRepository = SourceRepositoryImpl(
+      sourcesDataSource,
+      sourcesLocalDataSource,
+    );
   }
 
   Future<void> getSources({required String categoryId}) async {
