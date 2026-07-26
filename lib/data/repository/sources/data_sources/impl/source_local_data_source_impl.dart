@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:a5bark/data/repository/sources/data_sources/local/source_local_data_source.dart';
 import 'package:a5bark/model/source_response.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable(as: SourceLocalDataSource)
 class SourceLocalDataSourceImpl extends SourceLocalDataSource {
   @override
   Future<SourceResponse> getSources({required String categoryId}) async {
@@ -30,7 +32,6 @@ class SourceLocalDataSourceImpl extends SourceLocalDataSource {
     required SourceResponse sources,
     required String categoryId,
   }) async {
-
     final sourceBox = await Hive.openBox('Sources');
 
     try {
