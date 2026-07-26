@@ -1,4 +1,3 @@
-import 'package:a5bark/theme_cubit.dart';
 import 'package:a5bark/ui/screens/home/widgets/divider_item.dart';
 import 'package:a5bark/ui/screens/home/widgets/drawer_item.dart';
 import 'package:a5bark/ui/screens/home/widgets/drop_down_menu.dart';
@@ -7,6 +6,7 @@ import 'package:a5bark/utils/resources/app_colors.dart';
 import 'package:a5bark/utils/resources/app_strings.dart';
 import 'package:a5bark/utils/resources/app_theme_extension.dart';
 import 'package:a5bark/utils/screen_size.dart';
+import 'package:a5bark/utils/theme_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
