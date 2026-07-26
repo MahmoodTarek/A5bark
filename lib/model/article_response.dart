@@ -1,5 +1,4 @@
 import 'package:a5bark/model/article.dart';
-import 'package:a5bark/model/article_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'article_response.g.dart';

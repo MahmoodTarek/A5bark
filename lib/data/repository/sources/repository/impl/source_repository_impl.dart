@@ -3,7 +3,9 @@ import 'package:a5bark/data/repository/sources/data_sources/remote/source_remote
 import 'package:a5bark/data/repository/sources/repository/source_repository.dart';
 import 'package:a5bark/model/source_response.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable(as: SourceRepository)
 class SourceRepositoryImpl extends SourceRepository {
   final SourceRemoteDataSource _sourceRemoteDataSource;
   final SourceLocalDataSource _sourceLocalDataSource;

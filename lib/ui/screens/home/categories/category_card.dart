@@ -3,7 +3,6 @@ import 'package:a5bark/ui/widgets/directional_icon.dart';
 import 'package:a5bark/utils/resources/app_assets.dart';
 import 'package:a5bark/utils/resources/app_strings.dart';
 import 'package:a5bark/utils/screen_size.dart';
-import 'package:easy_localization/easy_localization.dart'as easy;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

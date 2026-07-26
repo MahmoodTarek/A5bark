@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:a5bark/data/repository/articles/data_sources/local/articles_local_data_source.dart';
 import 'package:a5bark/model/article_response.dart';
 import 'package:hive_ce/hive.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable(as: ArticlesLocalDataSource)
 class ArticlesLocalDataSourceImpl extends ArticlesLocalDataSource {
   @override
   Future<ArticleResponse> getArticles({required String sourceId}) async {

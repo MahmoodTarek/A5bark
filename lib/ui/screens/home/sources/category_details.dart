@@ -1,3 +1,4 @@
+import 'package:a5bark/injectable.dart';
 import 'package:a5bark/model/category.dart';
 import 'package:a5bark/ui/screens/home/sources/cubit/sources_cubit.dart';
 import 'package:a5bark/ui/screens/home/sources/cubit/sources_state.dart';
@@ -17,7 +18,7 @@ class CategoryDetails extends StatefulWidget {
 }
 
 class _CategoryDetailsState extends State<CategoryDetails> {
-  final viewModel = SourcesCubit();
+  final viewModel = getIt<SourcesCubit>();
   int selectedIndex = 0;
 
   @override
