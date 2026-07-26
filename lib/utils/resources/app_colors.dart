@@ -81,3 +81,4 @@ final class DarkColors implements AppColors {
   @override
   Color get icon => const Color(0xFFE5E7EB);
 }
+

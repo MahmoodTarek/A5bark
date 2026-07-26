@@ -1,11 +1,14 @@
 import 'package:a5bark/injectable.dart';
 import 'package:a5bark/model/source.dart';
 import 'package:a5bark/ui/screens/home/sources/articles/article_card.dart';
+import 'package:a5bark/ui/screens/home/sources/articles/articles_bottom_sheet.dart';
 import 'package:a5bark/ui/screens/home/sources/articles/cubit/articles_cubit.dart';
 import 'package:a5bark/ui/screens/home/sources/articles/cubit/articles_state.dart';
 import 'package:a5bark/ui/widgets/main_error.dart';
 import 'package:a5bark/ui/widgets/main_loading.dart';
 import 'package:a5bark/utils/resources/app_strings.dart';
+import 'package:a5bark/utils/resources/app_theme_extension.dart';
+import 'package:a5bark/utils/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,7 +55,21 @@ class _ArticlesDetailsState extends State<ArticlesDetails> {
           return ListView.builder(
             itemCount: state.articles.length,
             itemBuilder: (context, index) {
-              return ArticleCard(article: state.articles[index]);
+              return InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    backgroundColor: context.colors.transparent,
+
+                    builder: (context) =>
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: context.width * 0.02, vertical: context.height * 0.02),
+                          child: ArticlesBottomSheet(article: state.articles[index]),
+                        ),
+                  );
+                },
+                child: ArticleCard(article: state.articles[index]),
+              );
             },
           );
         } else if (state is ArticlesErrorState) {
