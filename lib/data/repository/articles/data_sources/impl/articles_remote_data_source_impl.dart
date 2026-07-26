@@ -2,7 +2,9 @@ import 'package:a5bark/data/api/api_constants.dart';
 import 'package:a5bark/data/api/api_manager.dart';
 import 'package:a5bark/data/repository/articles/data_sources/remote/articles_remote_data_source.dart';
 import 'package:a5bark/model/article_response.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable(as: ArticlesRemoteDataSource)
 class ArticlesRemoteDataSourceImpl extends ArticlesRemoteDataSource {
   late final ApiManager apiManager;
 

@@ -1,3 +1,4 @@
+import 'package:a5bark/injectable.dart';
 import 'package:a5bark/model/source.dart';
 import 'package:a5bark/ui/screens/home/sources/articles/article_card.dart';
 import 'package:a5bark/ui/screens/home/sources/articles/cubit/articles_cubit.dart';
@@ -18,7 +19,7 @@ class ArticlesDetails extends StatefulWidget {
 }
 
 class _ArticlesDetailsState extends State<ArticlesDetails> {
-  final viewModel = ArticlesCubit();
+  final viewModel = getIt<ArticlesCubit>();
 
   @override
   void initState() {

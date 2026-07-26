@@ -3,7 +3,9 @@ import 'package:a5bark/data/repository/articles/data_sources/remote/articles_rem
 import 'package:a5bark/data/repository/articles/repository/articles_repository.dart';
 import 'package:a5bark/model/article_response.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable(as: ArticlesRepository)
 class ArticlesRepositoryImpl extends ArticlesRepository {
   final ArticlesRemoteDataSource articlesRemoteDataSource;
   final ArticlesLocalDataSource articlesLocalDataSource;
