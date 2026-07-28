@@ -5,7 +5,7 @@ A modern Flutter news application that allows users to browse news by category, 
 A5bark is built with a scalable Flutter architecture using BLoC/Cubit for state management, Retrofit and Dio for network communication, Injectable and GetIt for dependency injection, and local storage solutions for data persistence.
 
 ---
-
+ 
 ## Table of Contents
 
 * [Overview](#overview)
